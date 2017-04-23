@@ -1,0 +1,30 @@
+{
+  "name": "keep-breathing",
+  "description": "An attempt to simulate a panic attack on a space ship",
+  "version": "0.0.1",
+  "main": "start.js",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "svgjs": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^2.0.41"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmillerbakewell/KeepBreathing.git"
+  },
+  "keywords": [
+    "anxiety",
+    "game"
+  ],
+  "author": "hmillerbakewell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hmillerbakewell/KeepBreathing/issues"
+  },
+  "homepage": "https://github.com/hmillerbakewell/KeepBreathing#readme"
+}

@@ -1,0 +1,280 @@
+<head>
+
+    <script>
+        var script = `
+.label Start
+.action context.pause()
+.action c.causes = []
+.action c.breath_angle = -0.1
+Having trouble focussing?
+
+Encourage your character to breathe.
+
+.link b1 Click here to continue
+.end
+
+
+.label b1
+.action c.resume()
+Click on the breath dial.
+
+The closer the moving marker is to the smaller markers the
+calmer you will become.
+
+The colour that appears indicates how close you were.
+
+.link b2 Continue
+.end
+
+.label b2
+Breathe in for 4
+
+Hold for 2
+
+Breathe out for 4
+
+.link b5 Got it?
+.end
+
+.label b5
+Anxiety will steadily build, making it harder to focus.
+.action c.causes.push([25,0])
+
+You're about to wake up.
+
+.link b6 Ready?
+.end
+
+.label b6
+.link Go Go!
+.end
+
+.label Go
+.action c.resume()
+.action c.anxiety = 0
+Your right eye opens,
+your left is pressed into the cold grating.
+
+"Warning. Proximity Alert. Warning."
+
+The floor tilts and you are rocked painfully onto your side.
+
+.link g2 You black out again.
+.end
+
+.label g2
+.action c.anxiety = 0
+This time you feel steadier.
+Clearly something terrible is happening.
+Get to the cockpit.
+
+.link lq Location: Living Quarters 
+.end
+
+.label lq
+Your tiny berth is here, a comfortable, coffin-sized nest.
+
+.link cp Location: Cockpit
+
+.link eng Location: Engineering
+
+.link ls Location: Life Support
+.end
+
+.label cp
+
+" Warning! Proximity Alert!
+Please ensure shields are operational! "
+
+.macro cockpit
+
+.macro engines
+
+.macro shields
+
+.macro oxygen
+
+.macro fuel
+
+.link sg Location: Shield Generator
+
+.link lq Location: Quarters
+.end
+
+.label ls
+Life support houses, amongst other things, the oxygen production.
+The readout is showing:
+.macro oxygen
+There's some extra information underneath:
+
+Once the engines have fuel,
+press the red button to reset the day-night cycle.
+Press the green button to divert power to food production.
+Press the blue button to divert oxygen to the engines.
+
+.link ls_r Press the red button
+
+.link ls_b Press the blue button
+
+.link ls_g Press the green button
+
+.link lq Location: Quarters
+
+.end
+
+.label ls_r
+You press the red button.
+.macro lifeSupportPressWrong
+
+.link ls Look back at the screen.
+.end
+.label ls_b
+You press the blue button.
+.macro lifeSupportPress
+
+.link ls Look back at the screen.
+.end
+.label ls_g
+You press the green button.
+.macro lifeSupportPressWrong
+
+.link ls Look back at the screen.
+.end
+
+.label success
+.action c.causes = [-10,0]
+You won!
+
+Thank you so much for playing,
+I hope it was an interesting experience.
+.end
+
+.label eng
+The engineering deck.
+It's cramped, even more so that the rest of the ship.
+
+.link fuel Location: Fuel room
+
+.link engines Location: Engine room
+
+.link lq Location: Quarters
+.end
+
+.label fuel
+A mess of hoses sprawl across the floor,
+littering what had been an orderly fuel recycling lab.
+There's little real damage,
+and you manage to reconnect most of the piping immediately.
+.macro fuelDescribe
+There's a guide on the wall, just grab the right pipe from the pile!
+
+ONB7 -> U4: 0.3u
+
+ONB7 -> D2: 0.2u
+
+U4 -> ONB7: 0.2u
+
+
+.link pipes Look at the pile of pipes
+
+.link eng Location: Engineering
+.end
+
+.label pipes
+.link pipe3 Grab a 0.3u pipe
+
+.link pipe2 Grab a 0.2u pipe
+.end
+
+.label pipe3
+.macro fuelRight
+You grab the pipe and force an end into the socket.
+
+.link fuel It fits!
+.end
+
+.label pipe2
+.macro fuelWrong
+You grab the pipe and force an end into the socket.
+
+.link fuel It doesn't fit!
+.end
+
+
+.label engines
+
+A message dominates the readout:
+"
+.macro detailedEngines
+Once the engines are ready to be engaged,
+set the fuel to oxygen ratio desired.
+Start with 1 part oxygen to 7 parts liquid fuel.
+Then, proceed to 3 parts oxygen to 5 parts liquid fuel.
+Only once the engines have reached their peak should a higher
+ratio be attempted.
+"
+
+.macro enginesBlock
+
+.link eng Location: Engineering
+.end
+
+.label ratio
+
+You see a lever indicating the mixing ratio of fuel and oxygen.
+How should you mix it?
+
+.link ratioWrong 7/8
+
+.link ratioRight 1/8
+
+.link ratioWrong 6/8
+
+.link ratioWrong 2/8
+
+.link ratioWrong 5/8
+
+.link ratioWrong 3/8
+
+.link ratioWrong 4/8
+
+
+.link engines Leave it alone
+.end
+
+.label ratioRight
+.macro enginesRight
+
+.link engines Look at the display
+.end
+
+.label ratioWrong
+.macro enginesWrong
+
+.link engines Look at the display
+.end
+
+.label sg
+This is a tiny pod just off the cockpit.
+All you need to do is get power through the ship,
+and the shields should protect you from the rest of the meteorites.
+
+.macro shieldsDetailed
+
+.link cp Location: Cockpit
+.end
+`
+    </script>
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./svg.min.js"></script>
+    <script type="text/javascript" src="./all.js"></script>
+    <link rel="stylesheet" type="text/css" href="script.css">
+</head>
+
+<body>
+    <div id="div_svg" class="block">
+    </div>
+    <div id="str_script" class="block"></div>
+</body>
