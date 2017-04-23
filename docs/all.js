@@ -107,7 +107,7 @@ var Person = (function () {
         this.paused = false;
         this.anxiety = 0;
         this.anxiety_max = 1000;
-        this.causes = [[10, ANX.IMPENDING_DOOM]];
+        this.causes = [];
         this.time_scaling = 0.1;
         this.tick = function () {
             if (!_this.paused) {
@@ -116,18 +116,18 @@ var Person = (function () {
                     _this.anxiety += ns[0] * _this.time_scaling;
                     _this.anxiety = Math.min(_this.anxiety, _this.anxiety_max);
                 }
-                _this.breath_angle += _this.time_scaling * (1 + 2 * _this.anxiety / _this.anxiety_max);
+                _this.breath_angle += _this.time_scaling * _this.speed();
                 _this.breath_angle = _this.breath_angle % _this.breath_modulo;
             }
         };
         this.breath_angle = 0;
         this.breath_modulo = 10;
         this.breath_targets = [0, 4, 6, 10];
-        this.last_breath = 0;
+        this.last_breath = 8;
         this.breathe = function () {
             if (!_this.paused
                 &&
-                    (_this.breath_angle - _this.last_breath + _this.breath_modulo) % _this.breath_modulo > 0) {
+                    (_this.breath_angle - _this.last_breath + _this.breath_modulo) % _this.breath_modulo > 1) {
                 _this.last_breath = _this.breath_angle;
                 var niceness = Math.pow(0.5, 2);
                 var min_dist_squared = _this.breath_targets.map(function (x) { return Math.pow((x - _this.breath_angle), 2); }).reduce(function (x, acc) { return Math.min(x, acc); });
@@ -153,6 +153,9 @@ var Person = (function () {
         window.setInterval(this.tick, this.time_scaling * 1000);
         this.breathe();
     }
+    Person.prototype.speed = function () {
+        return (1 + 2 * this.anxiety / this.anxiety_max);
+    };
     return Person;
 }());
 exports.Person = Person;
@@ -228,7 +231,7 @@ macros["fuelDescribe"] = function () {
         return span("You're sure that cable you chose was the right one.");
     }
     else {
-        return span("You're still missing a connect from... ONB7 to U4.\nYes, that's right.");
+        return span("You're still missing a connection from... ONB7 to U4.\nYes, that's right.");
     }
 };
 macros["detailedEngines"] = function () {
@@ -254,7 +257,7 @@ macros["enginesBlock"] = function () {
         return link(".link ratio Set the fuel ratio");
     }
     else {
-        return span("You can't set the fuel ratio yet.");
+        return span("You can't set the fuel ratio until you have the fuel connected.");
     }
 };
 macros["enginesRight"] = function () {
@@ -272,6 +275,9 @@ macros["shieldsDetailed"] = function () {
     else {
         return span("You don't have enough power to run the shields!");
     }
+};
+macros["links"] = function () {
+    return "\n<a href=\"https://sometimesmyhandswork.tumblr.com/\">my tumblr</a>\nor the <a href=\"https://github.com/hmillerbakewell/KeepBreathing\">github page.</a>\n";
 };
 var renderText = function (label, triggerActions) {
     if (triggerActions === void 0) { triggerActions = true; }
@@ -351,7 +357,7 @@ function breathClick() {
     }
 }
 function renderBreathing() {
-    var amt = 2 * Math.PI * (0.1 + exports.person.breath_angle) / exports.person.breath_modulo;
+    var amt = 2 * Math.PI * (0.1 * exports.person.speed() + exports.person.breath_angle) / exports.person.breath_modulo;
     breathMarker.stop(true, true);
     breathMarker.animate(100).cx(Math.cos(amt)).cy(Math.sin(amt));
 }

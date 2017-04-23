@@ -1,5 +1,5 @@
 <head>
-
+    <title>Keep Breathing</title>
     <script>
         var script = `
 .label Start
@@ -33,12 +33,19 @@ Hold for 2
 
 Breathe out for 4
 
-.link b5 Got it?
+.link b4 Got it?
+.end
+
+.label b4
+The aim of this game is to simulate anxiety,
+not cause it.
+
+.link b5 I understand
 .end
 
 .label b5
 Anxiety will steadily build, making it harder to focus.
-.action c.causes.push([25,0])
+.action c.causes.push([15,0])
 
 You're about to wake up.
 
@@ -72,7 +79,7 @@ Get to the cockpit.
 .end
 
 .label lq
-Your tiny berth is here, a comfortable, coffin-sized nest.
+Your tiny berth is here, a comfortable, person-sized nest.
 
 .link cp Location: Cockpit
 
@@ -147,6 +154,9 @@ You won!
 
 Thank you so much for playing,
 I hope it was an interesting experience.
+
+To leave feedback please go to
+.macro links
 .end
 
 .label eng
@@ -274,7 +284,10 @@ and the shields should protect you from the rest of the meteorites.
 </head>
 
 <body>
-    <div id="div_svg" class="block">
+    <div class="column">
+        <div id="div_svg" class="block">
+        </div>
+        <div id="str_script" class="block">
+        </div>
     </div>
-    <div id="str_script" class="block"></div>
 </body>

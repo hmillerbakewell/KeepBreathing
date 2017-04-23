@@ -64,7 +64,7 @@ macros["fuelDescribe"] = () => {
     if (person.ship.fuel) {
         return span("You're sure that cable you chose was the right one.")
     } else {
-        return span(`You're still missing a connect from... ONB7 to U4.
+        return span(`You're still missing a connection from... ONB7 to U4.
 Yes, that's right.`)
     }
 }
@@ -87,7 +87,7 @@ macros["enginesBlock"] = () => {
     if (person.ship.fuel && person.ship.oxygen) {
         return link(".link ratio Set the fuel ratio")
     } else {
-        return span("You can't set the fuel ratio yet.")
+        return span("You can't set the fuel ratio until you have the fuel connected.")
     }
 }
 macros["enginesRight"] = () => {
@@ -105,7 +105,12 @@ macros["shieldsDetailed"] = () => {
         return span("You don't have enough power to run the shields!")
     }
 }
-
+macros["links"] = () => {
+    return `
+<a href="https://sometimesmyhandswork.tumblr.com/">my tumblr</a>
+or the <a href="https://github.com/hmillerbakewell/KeepBreathing">github page.</a>
+`
+}
 
 let renderText = function (label: string, triggerActions: boolean = true) {
     lastRender = label
@@ -194,7 +199,7 @@ function breathClick() {
 }
 function renderBreathing() {
     // THE MARKER NEEDS TO ALWAYS BE A LITTLE AHEAD
-    let amt = 2 * Math.PI * (0.1 + person.breath_angle) / person.breath_modulo
+    let amt = 2 * Math.PI * (0.1 * person.speed() + person.breath_angle) / person.breath_modulo
     breathMarker.stop(true, true)
     breathMarker.animate(100).cx(Math.cos(amt)).cy(Math.sin(amt))
 }

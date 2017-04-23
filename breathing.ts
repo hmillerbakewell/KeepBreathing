@@ -7,7 +7,7 @@ export class Person {
     anxiety: number = 0
     anxiety_max: number = 1000
 
-    causes: [number, ANX][] = [[10, ANX.IMPENDING_DOOM]]
+    causes: [number, ANX][] = []
     time_scaling: number = 0.1
     tick: () => void = () => {
         if (!this.paused) {
@@ -15,24 +15,26 @@ export class Person {
                 this.anxiety += ns[0] * this.time_scaling
                 this.anxiety = Math.min(this.anxiety, this.anxiety_max)
             }
-            this.breath_angle += this.time_scaling * (1 + 2 * this.anxiety / this.anxiety_max)
+            this.breath_angle += this.time_scaling * this.speed()
             this.breath_angle = this.breath_angle % this.breath_modulo
         }
     }
-
+    speed() {
+        return (1 + 2 * this.anxiety / this.anxiety_max)
+    }
     breath_angle: number = 0
     breath_modulo: number = 10
     breath_targets: number[] = [0, 4, 6, 10]
 
     ship: Ship
 
-    last_breath: number = 0
+    last_breath: number = 8
 
     breathe: () => number = () => {
         if (
             !this.paused
             &&
-            (this.breath_angle - this.last_breath + this.breath_modulo) % this.breath_modulo > 0
+            (this.breath_angle - this.last_breath + this.breath_modulo) % this.breath_modulo > 1
         ) {
             this.last_breath = this.breath_angle
             let niceness = Math.pow(0.5, 2)

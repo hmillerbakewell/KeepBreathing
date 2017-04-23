@@ -5,10 +5,18 @@
 #str_script{
     margin-top: 50px;
     font-family: "Lucida Console", Monaco, monospace;
+    text-align: left;
 }
 
 .block {
     display: block;
     float: left;
+    max-width: 300px;
+    overflow-wrap: break-word;
+}
+
+.column {
+    margin: auto;
+    text-align: center;
     max-width: 300px;
 }
