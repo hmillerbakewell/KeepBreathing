@@ -136,6 +136,9 @@ let garbleText = function (input: string, factor: number) {
         return str.substr(0, index) + replacement + str.substr(index + replacement.length);
     }
     let charShift = function (character: string, factor: number) {
+        if (character == " ") {
+            return character
+        }
         let asciiStart = character.charCodeAt(0)
         let asciiEnd = Math.floor(asciiStart + 10 * random_bm() * factor)
         if (asciiEnd > 126) {
