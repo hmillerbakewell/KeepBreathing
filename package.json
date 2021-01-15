@@ -1,7 +1,7 @@
 {
   "name": "keep-breathing",
   "description": "An attempt to simulate an anxiety attack on a space ship.",
-  "version": "1.0",
+  "version": "1.1",
   "main": "start.js",
   "dependencies": {
     "jquery": "^3.2.1",

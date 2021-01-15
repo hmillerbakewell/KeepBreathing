@@ -40,12 +40,23 @@ Breathe out for 4
 The aim of this game is to simulate anxiety,
 not cause it.
 
+.link b4b I understand
+.end
+
+.label b4b
+The game will present you with
+accurate information,
+just not in the most helpful manner.
+
 .link b5 I understand
 .end
 
 .label b5
 Anxiety will steadily build, making it harder to focus.
 .action c.causes.push([15,0])
+
+You're going to have to manage both your breath
+and the situation you are placed in.
 
 You're about to wake up.
 
@@ -217,11 +228,11 @@ A message dominates the readout:
 "
 .macro detailedEngines
 Once the engines are ready to be engaged,
-set the fuel to oxygen ratio desired.
+set the oxygen / fuel ratio desired.
 Start with 1 part oxygen to 7 parts liquid fuel.
-Then, proceed to 3 parts oxygen to 5 parts liquid fuel.
-Only once the engines have reached their peak should a higher
-ratio be attempted.
+Only once normal running operations have been met should
+higher ratios be used,
+with a maximum of 5 parts oxygen to 3 parts fuel.
 "
 
 .macro enginesBlock
@@ -231,8 +242,9 @@ ratio be attempted.
 
 .label ratio
 
-You see a lever indicating the mixing ratio of fuel and oxygen.
-How should you mix it?
+You see a lever indicating how much of the tank should be oxygen
+(the rest will be fuel).
+How high should you set the lever?
 
 .link ratioWrong 7/8
 
@@ -279,7 +291,7 @@ and the shields should protect you from the rest of the meteorites.
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="./svg.min.js"></script>
-    <script type="text/javascript" src="./all.js"></script>
+    <script type="text/javascript" src="./browserified.js"></script>
     <link rel="stylesheet" type="text/css" href="script.css">
 </head>
 

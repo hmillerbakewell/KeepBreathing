@@ -87,7 +87,7 @@ macros["enginesBlock"] = () => {
     if (person.ship.fuel && person.ship.oxygen) {
         return link(".link ratio Set the fuel ratio")
     } else {
-        return span("You can't set the fuel ratio until you have the fuel connected.")
+        return span("You can't set the fuel ratio until you have the fuel and oxygen connected.")
     }
 }
 macros["enginesRight"] = () => {
@@ -107,8 +107,7 @@ macros["shieldsDetailed"] = () => {
 }
 macros["links"] = () => {
     return `
-<a href="https://sometimesmyhandswork.tumblr.com/">my tumblr</a>
-or the <a href="https://github.com/hmillerbakewell/KeepBreathing">github page.</a>
+the <a href="https://github.com/hmillerbakewell/KeepBreathing">github page.</a>
 `
 }
 
@@ -191,7 +190,7 @@ function breathClick() {
         // -1 is total fail
         // 0 is perfect
         let rgb = hslToRgb((1 - accuracy) * 0.3, 0.8, 0.5)
-        let fill_colour = { r: rgb[0], g: rgb[1], b: rgb[2] }
+        let fill_colour = new SVG.Color({ r: rgb[0], g: rgb[1], b: rgb[2]}).toHex()
         let amt = 2 * Math.PI * person.breath_angle / person.breath_modulo
         // let evidence = svg.circle(0.1).fill(fill_colour).cx(breathMarker.cx()).cy(breathMarker.cy())
         let evidence = svg.circle(0.1).fill(fill_colour).cx(Math.cos(amt)).cy(Math.sin(amt))
